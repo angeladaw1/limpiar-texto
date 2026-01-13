@@ -14,7 +14,9 @@ export default async function handler(req, res) {
   const texto = params.get("texto") || params.get("text") || "";
 
   // Eliminar todo lo que no sea número
-  const soloNumeros = texto.replace(/[^0-9]/g, "");
+  const match = texto.match(/[-+]?[0-9]{1,3}(?:[.,][0-9]{3})*(?:[.,][0-9]+)?/);
+  const soloNumeros = match ? match[0] : "";
+
 
   res.status(200).json({
     numeros: soloNumeros
